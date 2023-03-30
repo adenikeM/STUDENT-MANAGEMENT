@@ -28,6 +28,7 @@ public class Utils {
             STUDENT_LIST.add(student);
         } while (true);
     }
+
     static void saveToFile() {
         try (FileWriter fileWriter = new FileWriter(AppConstants.FILE)) {
             for (Student student : STUDENT_LIST) {
@@ -38,12 +39,13 @@ public class Utils {
             throw new RuntimeException(e);
         }
     }
-    private static String readFromFile(){
-        if(!FILE.exists()){
+
+    private static String readFromFile() {
+        if (!FILE.exists()) {
             return "";
         }
         StringBuilder sb = new StringBuilder();
-        try(FileReader fileReader = new FileReader(FILE)) {
+        try (FileReader fileReader = new FileReader(FILE)) {
             int i;
             while ((i = fileReader.read()) != -1) {
                 sb.append((char) i);
@@ -53,7 +55,8 @@ public class Utils {
         }
         return sb.toString();
     }
-    static void getStudentFromFile(){
+
+    static void getStudentFromFile() {
         String stringFromFile = readFromFile();
 
         if (!stringFromFile.isEmpty()) {
@@ -70,16 +73,28 @@ public class Utils {
             }
         }
     }
-    static  void viewStudent(){
-        if(!STUDENT_LIST.isEmpty()){
+
+    static void viewStudent() {
+        if (!STUDENT_LIST.isEmpty()) {
+            String printf = String.format(String.valueOf(System.out.printf("________________________________________________________%n")));
             System.out.printf("________________________________________________________%n");
             System.out.printf("               LIST OF REGISTERED STUDENTS              %n");
             System.out.printf("                                                        %n");
             System.out.printf("________________________________________________________%n");
-
-
+            System.out.printf("|%-4s | %-40s | %-50s | %-8s | %-10 |%n", "ID", "NAME", "ADDRESS", "GENDER", "DATE OF BIRTH");
+            System.out.printf("________________________________________________________%n");
+            StringBuilder sb = new StringBuilder(printf);
+            for (Student student : STUDENT_LIST) {
+                if (!student.isDeleted()) {
+                    String studentLine = String.format("%-4d %-40s %-50ds %-8s %10d %n", student.getId(), student.getName(), student.getAddress(), student.getGender(), student.getDate());
+                    sb.append(studentLine);
+                }
+            }
+            System.out.println(sb);
+        } else {
+            System.out.println("No student record");
         }
     }
-
 }
+
 
