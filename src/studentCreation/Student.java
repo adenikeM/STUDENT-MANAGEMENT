@@ -21,6 +21,9 @@ public class Student {
     public Student(int id, String name, int parseInt, double parseDouble) {
     }
 
+    public Student(int parseInt, String studentStringSplit, int parseInt1, double parseDouble, boolean parseBoolean) {
+    }
+
     public boolean isDeleted() {return isDeleted;}
 
     public void setDeleted(boolean deleted) {isDeleted = deleted;}

@@ -12,6 +12,9 @@ public class Console {
         int baseOperation = selectBaseOperation();
         if(baseOperation == 1){
             Utils.getStudentFromUser();
+            Utils.saveToFile();
+        } else if(baseOperation == 2){
+
         }
     }
 }
