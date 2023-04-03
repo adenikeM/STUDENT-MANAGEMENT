@@ -1,65 +1,71 @@
 package studentCreation;
 
+import javax.swing.text.DateFormatter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Student {
-    private String name;
+    private String fullName;
     private String address;
-    private String gender;
-    private int date;
+    private Gender gender;
     private int id;
+    private LocalDate birthDate;
 
     private boolean isDeleted = false;
 
-    public Student(int id, String name,String address, String gender, int date, boolean isDeleted){
+    public Student(int id, String fullName,String address, Gender gender, LocalDate birthDate , boolean isDeleted){
         this.isDeleted = isDeleted;
         this.id = id;
-        this.name = name;
+        this.fullName = fullName;
         this. address = address;
         this.gender = gender;
-        this.date = date;
+        this.birthDate = birthDate;
     }
 
-    public Student(int id, String name, int parseInt, double parseDouble) {
-    }
+    public Student(int id, String fullName, String address, Gender gender, LocalDate birthDate) {
+        this.id = id;
+        this.fullName = fullName;
+        this.address = address;
+        this.gender = gender;
+        this.birthDate = birthDate;
 
-    public Student(int parseInt, String studentStringSplit, int parseInt1, double parseDouble, boolean parseBoolean) {
     }
-
     public boolean isDeleted() {return isDeleted;}
 
     public void setDeleted(boolean deleted) {isDeleted = deleted;}
 
-    public String getName() {return name;}
+    public String getFullName() {return fullName;}
 
-    public void setName(String name) {this.name = name;}
+    public void setFullName(String fullName) {this.fullName = fullName;}
 
     public String getAddress() {return address;}
 
     public void setAddress(String address) {this.address = address;}
 
-    public String getGender() {return gender;}
+    public Gender getGender() {return gender;}
 
-    public void setGender(String gender) {this.gender = gender;}
+    public void setGender(Gender gender) {this.gender = gender;}
 
-    public int getDate() {return date;}
+    public LocalDate getBirthDate() {return birthDate;}
 
-    public void setDate(int date) {this.date = date;}
+    public void setBirthDate(LocalDate birthDate) {this.birthDate = birthDate;}
 
     public int getId() {return id;}
 
     public void setId(int id) {this.id = id;}
 
     public String getMessageDetails() {
-        return id + "," + name + "," + address + "," + gender + "," + date + "," + isDeleted;
+        return id + "," + fullName + "," + address + "," + gender + "," + birthDate + "," + isDeleted;
     }
 
     @Override
     public String toString() {
         return "student management.studentCreation.Student{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", address=" + address +
                 ", gender=" + gender +
-                ",date=" + date +
+                ", birthDate=" + birthDate +
                 ", isDeleted=" + isDeleted +
                 '}';
     }
