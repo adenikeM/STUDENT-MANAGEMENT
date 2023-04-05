@@ -4,10 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.Format;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.logging.Formatter;
 
 import static studentCreation.AppConstants.FILE;
 import static studentCreation.AppConstants.STUDENT_LIST;
@@ -19,7 +21,7 @@ public class Utils {
 
     public static void getStudentFromUser() {
         do {
-            System.out.println("Please enter your student details in this format Fullname,address,gender(MALE, FEMALE), date of birth (DD/MM/YY) or -1 to stop");
+            System.out.println("Please enter your student details in this format Fullname,address,gender(MALE, FEMALE), date of birth (dd/MM/yyyy) or -1 to stop");
             Scanner scanner = new Scanner(System.in);
             String studentString = scanner.nextLine().trim();
             if (studentString.equals("-1")) {
@@ -28,7 +30,7 @@ public class Utils {
             String[] split = studentString.split(",");
             Student student = new Student(STUDENT_LIST.size() + 1,
                     split[0],String.valueOf(split[1]),
-                    Gender.valueOf(split[2]), LocalDate.parse(split[3]));
+                    Gender.valueOf(split[2]), LocalDate.parse(split[3],DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             STUDENT_LIST.add(student);
         } while (true);
     }
@@ -77,7 +79,8 @@ public class Utils {
                 String genderString = studentStringSplits[3];
                 Boolean isDeleted = Boolean.parseBoolean(studentStringSplits[5]);
                 Gender gender = Gender.valueOf(genderString.toUpperCase());
-                LocalDate birthDate = LocalDate.parse(studentStringSplits[4]);
+                String dateString = studentStringSplits[4];
+                LocalDate birthDate = LocalDate.parse(dateString,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 //                try {
 //                    Gender gender = Gender.valueOf(genderString.toUpperCase());
 //                } catch (Exception e) {
@@ -95,20 +98,22 @@ public class Utils {
     static void viewStudent() {
         if (!STUDENT_LIST.isEmpty()) {
             String printf = String.format(String.valueOf(System.out.printf("________________________________________________________%n")));
-            System.out.printf("________________________________________________________%n");
+             System.out.printf("________________________________________________________%n");
             System.out.printf("               LIST OF REGISTERED STUDENTS              %n");
             System.out.printf("                                                        %n");
-            System.out.printf("________________________________________________________%n");
-            System.out.printf("|%-4s | %-40s | %-50s | %-8s | %-10 |%n", "ID", "FULLNAME", "ADDRESS", "GENDER", "DATE OF BIRTH");
-            System.out.printf("________________________________________________________%n");
+            System.out.println("_________________________________________________________");
+            System.out.printf("|%4s | %10s | %10s | %10s | %15 |%n", "ID", "FULLNAME", "ADDRESS", "GENDER", "DATE OF BIRTH");
+            System.out.println();
+            System.out.println("__________________________________________________________");
             StringBuilder sb = new StringBuilder(printf);
             for (Student student : STUDENT_LIST) {
                 if (!student.isDeleted()) {
-                    String studentLine = String.format("%-4d %-40s %-50ds %-8s %10d %n", student.getId(), student.getFullName(), student.getAddress(), student.getGender(), student.getBirthDate());
+                    String studentLine = String.format("%5d %25s %20ds %10s %13d %n", student.getId(), student.getFullName(), student.getAddress(), student.getGender(), student.getBirthDate());
                     sb.append(studentLine);
                 }
             }
             System.out.println(sb);
+            System.out.println("___________________________________________________________");
         } else {
             System.out.println("No student record");
         }
