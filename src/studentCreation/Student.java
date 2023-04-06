@@ -1,8 +1,8 @@
 package studentCreation;
 
-import javax.swing.text.DateFormatter;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
+import static studentCreation.AppConstants.formatter;
 
 public class Student {
     private String fullName;
@@ -46,7 +46,8 @@ public class Student {
 
     public void setGender(Gender gender) {this.gender = gender;}
 
-    public LocalDate getBirthDate() {return birthDate;}
+
+    public String getBirthDate() {return birthDate.format(formatter);}
 
     public void setBirthDate(LocalDate birthDate) {this.birthDate = birthDate;}
 
@@ -54,7 +55,13 @@ public class Student {
 
     public void setId(int id) {this.id = id;}
 
+    public void delete() {
+        this.isDeleted = true;
+    }
+
     public String getMessageDetails() {
+        String birthDate = formatter.format(this.birthDate);
+//        String birthDate = this.birthDate.format(formatter);
         return id + "," + fullName + "," + address + "," + gender + "," + birthDate + "," + isDeleted;
     }
 
