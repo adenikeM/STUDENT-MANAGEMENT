@@ -10,12 +10,16 @@ public class Console {
         }
         displayWelcomeMessage();
         int baseOperation = selectBaseOperation();
-        while (baseOperation != -1) {
+        while (baseOperation != 5) {
             if (baseOperation == 1) {
                 Utils.getStudentFromUser();
                 Utils.saveToFile();
             } else if (baseOperation == 2) {
                 Utils.viewStudent();
+            } else if (baseOperation == 3){
+                Utils.viewStudentByID();
+            }else if (baseOperation == 4){
+                Utils.deleteStudentById();
             }
             baseOperation = selectBaseOperation();
         }
